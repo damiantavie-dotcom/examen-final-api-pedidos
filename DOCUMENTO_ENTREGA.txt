@@ -1,0 +1,104 @@
+DOCUMENTO DE ENTREGA - EXAMEN FINAL SEMANA 10
+
+Nombre del estudiante: Damian Cespedes
+Nombre del modulo: Taller de plataformas web
+Nombre del docente: Zugehy Escalante Issele
+Semana: 10
+Fecha: 22-05-2026
+Titulo del trabajo: Desarrollo de API REST para gestion de clientes y pedidos
+
+ENLACE AL REPOSITORIO PUBLICO DE GITHUB:
+PENDIENTE_DE_REEMPLAZAR_POR_EL_LINK_DE_TU_REPOSITORIO
+
+1. INTRODUCCION
+
+El presente trabajo desarrolla una solucion backend mediante una API REST conectada a una base de datos relacional. La solucion permite gestionar clientes y pedidos, aplicando operaciones CRUD, validaciones de datos, separacion de rutas y controladores, uso de variables de entorno y codigos de estado HTTP adecuados.
+
+El objetivo principal es integrar los aprendizajes de desarrollo backend, bases de datos y APIs REST, creando una aplicacion funcional, ordenada y verificable mediante pruebas.
+
+2. DESARROLLO
+
+La solucion fue desarrollada con Node.js, Express y SQLite. Se implemento una base de datos relacional compuesta por dos entidades principales: clientes y pedidos.
+
+Entidad clientes:
+- id_cliente: clave primaria autoincremental.
+- nombre: nombre del cliente.
+- email: correo electronico unico del cliente.
+- telefono: telefono de contacto.
+- created_at: fecha de creacion.
+- updated_at: fecha de actualizacion.
+
+Entidad pedidos:
+- id_pedido: clave primaria autoincremental.
+- id_cliente: clave foranea relacionada con clientes.
+- cliente: nombre del cliente asociado.
+- email_cliente: correo del cliente asociado.
+- fecha_pedido: fecha del pedido.
+- total: monto total del pedido, validado para ser mayor a 0.
+- estado: estado del pedido.
+- created_at: fecha de creacion.
+- updated_at: fecha de actualizacion.
+
+La relacion entre las tablas se implemento mediante una llave foranea desde pedidos.id_cliente hacia clientes.id_cliente. Esta relacion permite que cada pedido quede asociado a un cliente preexistente y mantiene integridad referencial en la base de datos.
+
+La API REST implementa los siguientes endpoints:
+
+Clientes:
+- GET /api/clientes: listar clientes.
+- GET /api/clientes/:id: obtener cliente por ID.
+- GET /api/clientes/:id/pedidos: listar pedidos de un cliente.
+- POST /api/clientes: crear cliente.
+- PUT /api/clientes/:id: actualizar cliente.
+- DELETE /api/clientes/:id: eliminar cliente.
+
+Pedidos:
+- GET /api/pedidos: listar pedidos.
+- GET /api/pedidos?estado=pagado: filtrar pedidos por estado.
+- GET /api/pedidos?id_cliente=1: filtrar pedidos por cliente.
+- GET /api/pedidos/:id: obtener pedido por ID.
+- POST /api/pedidos: crear pedido asociado a cliente existente.
+- PUT /api/pedidos/:id: actualizar pedido.
+- DELETE /api/pedidos/:id: eliminar pedido.
+
+La estructura del proyecto separa la configuracion de base de datos, rutas, controladores, middlewares y utilidades de validacion. Tambien se utiliza un archivo .env para la configuracion del puerto y la ubicacion de la base de datos.
+
+3. PRUEBAS REALIZADAS
+
+Se realizaron pruebas de funcionamiento para verificar el correcto comportamiento de la API:
+
+- Se probo GET / para verificar que la API respondiera correctamente.
+- Se probo GET /health para verificar el estado del servidor.
+- Se probo GET /api/clientes para listar clientes registrados.
+- Se probo POST /api/clientes para crear un cliente nuevo, obteniendo codigo HTTP 201.
+- Se probo GET /api/clientes/:id para consultar un cliente especifico.
+- Se probo PUT /api/clientes/:id para actualizar datos de un cliente.
+- Se probo DELETE /api/clientes/:id para eliminar un cliente sin pedidos asociados, obteniendo codigo HTTP 204.
+- Se probo GET /api/pedidos para listar pedidos registrados.
+- Se probo POST /api/pedidos para crear un pedido asociado a un cliente existente, obteniendo codigo HTTP 201.
+- Se probo PUT /api/pedidos/:id para modificar el total y estado de un pedido.
+- Se probo DELETE /api/pedidos/:id para eliminar un pedido, obteniendo codigo HTTP 204.
+- Se probo la validacion del campo total, verificando que la API rechace valores menores o iguales a 0 con codigo HTTP 400.
+- Se probo la validacion de cliente existente, verificando que no se pueda crear un pedido con un id_cliente inexistente.
+- Se probo la integridad referencial, verificando que no se pueda eliminar un cliente que tenga pedidos asociados.
+
+Las pruebas quedaron documentadas en la carpeta requests y en el archivo docs/PRUEBAS_FUNCIONAMIENTO.md. Ademas, el proyecto incluye el script npm run test-api para ejecutar una prueba automatizada desde terminal.
+
+4. CONCLUSION
+
+El desarrollo de esta API REST permitio aplicar de forma practica los contenidos relacionados con backend, base de datos relacional y operaciones CRUD. La implementacion de una relacion entre clientes y pedidos mediante llave foranea permite mantener integridad entre las entidades y representar un caso real de gestion de pedidos.
+
+Como proyeccion, esta solucion podria ampliarse agregando autenticacion, manejo avanzado de productos, detalle de pedidos y despliegue en un servidor web. Esto permitiria transformar la API en una base para un sistema mas completo de ventas o administracion comercial.
+
+EVIDENCIAS VISUALES DE PRUEBAS
+
+Las evidencias visuales de funcionamiento se encuentran en la carpeta:
+
+docs/evidencias/
+
+En estas capturas se evidencia:
+- Inicialización correcta de la base de datos SQLite.
+- Ejecución del servidor en http://localhost:3000.
+- Pruebas automáticas ejecutadas con npm run test-api.
+- Funcionamiento de endpoints principales de clientes y pedidos.
+- Respuestas HTTP correctas: 200, 201, 204, 400, 404 y 409.
+- Mensaje final de pruebas: "Todas las pruebas finalizaron correctamente."

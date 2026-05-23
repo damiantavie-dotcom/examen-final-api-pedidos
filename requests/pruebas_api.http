@@ -1,0 +1,91 @@
+@baseUrl = http://localhost:3000
+@clienteId = 1
+@pedidoId = 1
+
+### 1. Inicio de la API
+GET {{baseUrl}}/
+
+### 2. Health check
+GET {{baseUrl}}/health
+
+### 3. Listar clientes
+GET {{baseUrl}}/api/clientes
+
+### 4. Crear cliente - debe responder 201 Created
+POST {{baseUrl}}/api/clientes
+Content-Type: application/json
+
+{
+  "nombre": "Pedro Ramirez",
+  "email": "pedro.ramirez{{$timestamp}}@example.com",
+  "telefono": "+56977777777"
+}
+
+### 5. Obtener cliente por ID
+GET {{baseUrl}}/api/clientes/{{clienteId}}
+
+### 6. Actualizar cliente
+PUT {{baseUrl}}/api/clientes/{{clienteId}}
+Content-Type: application/json
+
+{
+  "nombre": "Juan Perez Actualizado",
+  "telefono": "+56988888888"
+}
+
+### 7. Listar pedidos de un cliente
+GET {{baseUrl}}/api/clientes/{{clienteId}}/pedidos
+
+### 8. Listar pedidos
+GET {{baseUrl}}/api/pedidos
+
+### 9. Crear pedido asociado a cliente existente - debe responder 201 Created
+POST {{baseUrl}}/api/pedidos
+Content-Type: application/json
+
+{
+  "id_cliente": {{clienteId}},
+  "total": 29990,
+  "estado": "pendiente"
+}
+
+### 10. Obtener pedido por ID
+GET {{baseUrl}}/api/pedidos/{{pedidoId}}
+
+### 11. Actualizar pedido
+PUT {{baseUrl}}/api/pedidos/{{pedidoId}}
+Content-Type: application/json
+
+{
+  "total": 34990,
+  "estado": "pagado"
+}
+
+### 12. Filtrar pedidos por estado
+GET {{baseUrl}}/api/pedidos?estado=pagado
+
+### 13. Prueba de validacion: total menor o igual a 0 - debe responder 400
+POST {{baseUrl}}/api/pedidos
+Content-Type: application/json
+
+{
+  "id_cliente": {{clienteId}},
+  "total": 0,
+  "estado": "pendiente"
+}
+
+### 14. Prueba de validacion: cliente inexistente - debe responder 404
+POST {{baseUrl}}/api/pedidos
+Content-Type: application/json
+
+{
+  "id_cliente": 999999,
+  "total": 1000,
+  "estado": "pendiente"
+}
+
+### 15. Eliminar pedido - debe responder 204 No Content
+DELETE {{baseUrl}}/api/pedidos/{{pedidoId}}
+
+### 16. Eliminar cliente sin pedidos asociados - debe responder 204 No Content
+DELETE {{baseUrl}}/api/clientes/3

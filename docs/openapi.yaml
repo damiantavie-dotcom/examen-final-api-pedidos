@@ -1,0 +1,103 @@
+openapi: 3.0.3
+info:
+  title: API REST Clientes y Pedidos
+  version: 2.0.0
+  description: API REST para examen final de Taller de plataformas web.
+servers:
+  - url: http://localhost:3000
+paths:
+  /health:
+    get:
+      summary: Verifica que la API este activa
+      responses:
+        '200':
+          description: API activa
+  /api/clientes:
+    get:
+      summary: Lista clientes
+      responses:
+        '200':
+          description: Lista de clientes
+    post:
+      summary: Crea cliente
+      responses:
+        '201':
+          description: Cliente creado
+        '400':
+          description: Datos invalidos
+        '409':
+          description: Email duplicado
+  /api/clientes/{id}:
+    get:
+      summary: Obtiene cliente por ID
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Cliente encontrado
+        '404':
+          description: Cliente no encontrado
+    put:
+      summary: Actualiza cliente
+      responses:
+        '200':
+          description: Cliente actualizado
+    delete:
+      summary: Elimina cliente sin pedidos asociados
+      responses:
+        '204':
+          description: Cliente eliminado
+        '409':
+          description: Cliente tiene pedidos asociados
+  /api/pedidos:
+    get:
+      summary: Lista pedidos
+      parameters:
+        - in: query
+          name: estado
+          schema:
+            type: string
+        - in: query
+          name: id_cliente
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Lista de pedidos
+    post:
+      summary: Crea pedido asociado a cliente existente
+      responses:
+        '201':
+          description: Pedido creado
+        '400':
+          description: Datos invalidos
+        '404':
+          description: Cliente no existe
+  /api/pedidos/{id}:
+    get:
+      summary: Obtiene pedido por ID
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Pedido encontrado
+        '404':
+          description: Pedido no encontrado
+    put:
+      summary: Actualiza pedido
+      responses:
+        '200':
+          description: Pedido actualizado
+    delete:
+      summary: Elimina pedido
+      responses:
+        '204':
+          description: Pedido eliminado

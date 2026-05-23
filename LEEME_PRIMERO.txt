@@ -1,0 +1,21 @@
+LEEME PRIMERO
+
+Datos completados:
+- Estudiante: Damian Cespedes
+- Docente: Zugehy Escalante Issele
+- Modulo: Taller de plataformas web
+- Semana: 10
+
+Antes de entregar:
+1. Sube este proyecto a un repositorio publico de GitHub.
+2. Copia el enlace de GitHub.
+3. Reemplaza en DOCUMENTO_ENTREGA.txt y DOCUMENTO_ENTREGA.pdf el texto:
+   PENDIENTE_DE_REEMPLAZAR_POR_EL_LINK_DE_TU_REPOSITORIO
+4. Para probar el proyecto:
+   npm install
+   npm run init-db
+   npm start
+5. En otra terminal, ejecuta:
+   npm run test-api
+
+El proyecto ya fue preparado con estructura, CRUD, base de datos relacional, llave foranea, validaciones y documentos de entrega.

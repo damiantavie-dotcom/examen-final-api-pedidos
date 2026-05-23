@@ -1,0 +1,225 @@
+
+> examen-final-api-pedidos@2.0.0 test-api
+> node scripts/test-api.js
+
+Ejecutando pruebas contra la API...
+URL base: http://localhost:3457
+----------------------------------------
+GET / -> 200 esperado=200
+{
+  "ok": true,
+  "mensaje": "API REST Examen Final - Clientes y Pedidos",
+  "version": "2.0.0",
+  "endpoints": {
+    "health": "/health",
+    "clientes": "/api/clientes",
+    "pedidos": "/api/pedidos"
+  }
+}
+----------------------------------------
+GET /health -> 200 esperado=200
+{
+  "ok": true,
+  "status": "UP",
+  "timestamp": "2026-05-23T01:45:08.476Z"
+}
+----------------------------------------
+GET /api/clientes -> 200 esperado=200
+{
+  "ok": true,
+  "data": [
+    {
+      "id_cliente": 3,
+      "nombre": "Carlos Soto",
+      "email": "carlos.soto@example.com",
+      "telefono": "+56933333333",
+      "created_at": "2026-05-23 01:45:06",
+      "updated_at": null,
+      "total_pedidos": 0
+    },
+    {
+      "id_cliente": 2,
+      "nombre": "Maria Gonzalez",
+      "email": "maria.gonzalez@example.com",
+      "telefono": "+56922222222",
+      "created_at": "2026-05-23 01:45:06",
+      "updated_at": null,
+      "total_pedidos": 1
+    },
+    {
+      "id_cliente": 1,
+      "nombre": "Juan Perez",
+      "email": "juan.perez@example.com",
+      "telefono": "+56911111111",
+      "created_at": "2026-05-23 01:45:06",
+      "updated_at": null,
+      "total_pedidos": 1
+    }
+  ]
+}
+----------------------------------------
+POST /api/clientes -> 201 esperado=201
+{
+  "ok": true,
+  "mensaje": "Cliente creado correctamente",
+  "data": {
+    "id_cliente": 4,
+    "nombre": "Cliente Prueba",
+    "email": "cliente.prueba.1779500708485@example.com",
+    "telefono": "+56944444444",
+    "created_at": "2026-05-23 01:45:08",
+    "updated_at": null
+  }
+}
+----------------------------------------
+GET /api/clientes/4 -> 200 esperado=200
+{
+  "ok": true,
+  "data": {
+    "id_cliente": 4,
+    "nombre": "Cliente Prueba",
+    "email": "cliente.prueba.1779500708485@example.com",
+    "telefono": "+56944444444",
+    "created_at": "2026-05-23 01:45:08",
+    "updated_at": null
+  }
+}
+----------------------------------------
+PUT /api/clientes/4 -> 200 esperado=200
+{
+  "ok": true,
+  "mensaje": "Cliente actualizado correctamente",
+  "data": {
+    "id_cliente": 4,
+    "nombre": "Cliente Prueba Actualizado",
+    "email": "cliente.prueba.1779500708485@example.com",
+    "telefono": "+56955555555",
+    "created_at": "2026-05-23 01:45:08",
+    "updated_at": "2026-05-23 01:45:08"
+  }
+}
+----------------------------------------
+POST /api/pedidos -> 201 esperado=201
+{
+  "ok": true,
+  "mensaje": "Pedido creado correctamente",
+  "data": {
+    "id_pedido": 3,
+    "id_cliente": 4,
+    "cliente": "Cliente Prueba Actualizado",
+    "email_cliente": "cliente.prueba.1779500708485@example.com",
+    "fecha_pedido": "2026-05-23 01:45:08",
+    "total": 15000,
+    "estado": "pendiente",
+    "created_at": "2026-05-23 01:45:08",
+    "updated_at": null
+  }
+}
+----------------------------------------
+GET /api/pedidos -> 200 esperado=200
+{
+  "ok": true,
+  "data": [
+    {
+      "id_pedido": 3,
+      "id_cliente": 4,
+      "cliente": "Cliente Prueba Actualizado",
+      "email_cliente": "cliente.prueba.1779500708485@example.com",
+      "fecha_pedido": "2026-05-23 01:45:08",
+      "total": 15000,
+      "estado": "pendiente",
+      "created_at": "2026-05-23 01:45:08",
+      "updated_at": null,
+      "telefono_cliente": "+56955555555"
+    },
+    {
+      "id_pedido": 2,
+      "id_cliente": 2,
+      "cliente": "Maria Gonzalez",
+      "email_cliente": "maria.gonzalez@example.com",
+      "fecha_pedido": "2026-05-23 01:45:06",
+      "total": 49990,
+      "estado": "pagado",
+      "created_at": "2026-05-23 01:45:06",
+      "updated_at": null,
+      "telefono_cliente": "+56922222222"
+    },
+    {
+      "id_pedido": 1,
+      "id_cliente": 1,
+      "cliente": "Juan Perez",
+      "email_cliente": "juan.perez@example.com",
+      "fecha_pedido": "2026-05-23 01:45:06",
+      "total": 25990,
+      "estado": "pendiente",
+      "created_at": "2026-05-23 01:45:06",
+      "updated_at": null,
+      "telefono_cliente": "+56911111111"
+    }
+  ]
+}
+----------------------------------------
+GET /api/pedidos/3 -> 200 esperado=200
+{
+  "ok": true,
+  "data": {
+    "id_pedido": 3,
+    "id_cliente": 4,
+    "cliente": "Cliente Prueba Actualizado",
+    "email_cliente": "cliente.prueba.1779500708485@example.com",
+    "fecha_pedido": "2026-05-23 01:45:08",
+    "total": 15000,
+    "estado": "pendiente",
+    "created_at": "2026-05-23 01:45:08",
+    "updated_at": null,
+    "telefono_cliente": "+56955555555"
+  }
+}
+----------------------------------------
+PUT /api/pedidos/3 -> 200 esperado=200
+{
+  "ok": true,
+  "mensaje": "Pedido actualizado correctamente",
+  "data": {
+    "id_pedido": 3,
+    "id_cliente": 4,
+    "cliente": "Cliente Prueba Actualizado",
+    "email_cliente": "cliente.prueba.1779500708485@example.com",
+    "fecha_pedido": "2026-05-23 01:45:08",
+    "total": 18990,
+    "estado": "pagado",
+    "created_at": "2026-05-23 01:45:08",
+    "updated_at": "2026-05-23 01:45:08"
+  }
+}
+----------------------------------------
+POST /api/pedidos -> 400 esperado=400
+{
+  "ok": false,
+  "mensaje": "El campo total debe ser mayor a 0"
+}
+----------------------------------------
+POST /api/pedidos -> 404 esperado=404
+{
+  "ok": false,
+  "mensaje": "No existe un cliente con el id_cliente indicado"
+}
+----------------------------------------
+DELETE /api/clientes/4 -> 409 esperado=409
+{
+  "ok": false,
+  "mensaje": "No se puede eliminar el cliente porque tiene pedidos asociados. Elimina primero sus pedidos."
+}
+----------------------------------------
+DELETE /api/pedidos/3 -> 204 esperado=204
+----------------------------------------
+DELETE /api/clientes/4 -> 204 esperado=204
+----------------------------------------
+Todas las pruebas finalizaron correctamente.
+\n--- SERVIDOR ---
+
+> examen-final-api-pedidos@2.0.0 start
+> node src/server.js
+
+Base de datos SQLite conectada en: /mnt/data/project_out/ExamenFinal_Semana10_API_Pedidos_Damian_MEJORADO/database/pedidos.sqlite
+Servidor ejecutandose en http://localhost:3457

@@ -1,0 +1,188 @@
+{
+  "info": {
+    "name": "Examen Final API Pedidos - Clientes y Pedidos",
+    "description": "Coleccion para probar CRUD de clientes y pedidos, validaciones, codigos HTTP y relacion con llave foranea.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:3000"
+    },
+    {
+      "key": "clienteId",
+      "value": "1"
+    },
+    {
+      "key": "pedidoId",
+      "value": "1"
+    }
+  ],
+  "item": [
+    {
+      "name": "Inicio API",
+      "request": {
+        "method": "GET",
+        "url": "{{baseUrl}}/"
+      }
+    },
+    {
+      "name": "Health",
+      "request": {
+        "method": "GET",
+        "url": "{{baseUrl}}/health"
+      }
+    },
+    {
+      "name": "Listar clientes",
+      "request": {
+        "method": "GET",
+        "url": "{{baseUrl}}/api/clientes"
+      }
+    },
+    {
+      "name": "Crear cliente",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('201 Created', function () { pm.response.to.have.status(201); });",
+              "const json = pm.response.json();",
+              "if (json.data && json.data.id_cliente) pm.collectionVariables.set('clienteId', json.data.id_cliente);"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"nombre\": \"Cliente Postman\",\n  \"email\": \"cliente.postman.{{$timestamp}}@example.com\",\n  \"telefono\": \"+56912345678\"\n}"
+        },
+        "url": "{{baseUrl}}/api/clientes"
+      }
+    },
+    {
+      "name": "Obtener cliente por ID",
+      "request": {
+        "method": "GET",
+        "url": "{{baseUrl}}/api/clientes/{{clienteId}}"
+      }
+    },
+    {
+      "name": "Actualizar cliente",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"nombre\": \"Cliente Postman Actualizado\",\n  \"telefono\": \"+56987654321\"\n}"
+        },
+        "url": "{{baseUrl}}/api/clientes/{{clienteId}}"
+      }
+    },
+    {
+      "name": "Listar pedidos",
+      "request": {
+        "method": "GET",
+        "url": "{{baseUrl}}/api/pedidos"
+      }
+    },
+    {
+      "name": "Crear pedido",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('201 Created', function () { pm.response.to.have.status(201); });",
+              "const json = pm.response.json();",
+              "if (json.data && json.data.id_pedido) pm.collectionVariables.set('pedidoId', json.data.id_pedido);"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"id_cliente\": {{clienteId}},\n  \"total\": 29990,\n  \"estado\": \"pendiente\"\n}"
+        },
+        "url": "{{baseUrl}}/api/pedidos"
+      }
+    },
+    {
+      "name": "Obtener pedido por ID",
+      "request": {
+        "method": "GET",
+        "url": "{{baseUrl}}/api/pedidos/{{pedidoId}}"
+      }
+    },
+    {
+      "name": "Actualizar pedido",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"total\": 34990,\n  \"estado\": \"pagado\"\n}"
+        },
+        "url": "{{baseUrl}}/api/pedidos/{{pedidoId}}"
+      }
+    },
+    {
+      "name": "Validacion total 0",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"id_cliente\": {{clienteId}},\n  \"total\": 0,\n  \"estado\": \"pendiente\"\n}"
+        },
+        "url": "{{baseUrl}}/api/pedidos"
+      }
+    },
+    {
+      "name": "Eliminar pedido",
+      "request": {
+        "method": "DELETE",
+        "url": "{{baseUrl}}/api/pedidos/{{pedidoId}}"
+      }
+    },
+    {
+      "name": "Eliminar cliente",
+      "request": {
+        "method": "DELETE",
+        "url": "{{baseUrl}}/api/clientes/{{clienteId}}"
+      }
+    }
+  ]
+}
