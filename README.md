@@ -176,10 +176,7 @@ DOCUMENTO_ENTREGA.txt              Documento de entrega editable
 
 ## Entrega
 
-Antes de entregar, subir el proyecto a un repositorio publico de GitHub y reemplazar en `DOCUMENTO_ENTREGA.txt` y `DOCUMENTO_ENTREGA.pdf` el texto:
 
-```txt
-PENDIENTE_DE_REEMPLAZAR_POR_EL_LINK_DE_TU_REPOSITORIO
-```
 
 por el enlace real del repositorio.
+https://github.com/damiantavie-dotcom/examen-final-api-pedidos/edit/main/README.md
